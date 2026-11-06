@@ -251,6 +251,10 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
 .mlink ul.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 640px) { .mlink ul.two { grid-template-columns: minmax(0, 1fr); } }
 [hidden] { display: none !important; }
+.featured .fig.wide { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); background: #FFFFFF; padding: 16px 0 12px; }
+.schem-scroll { overflow-x: auto; padding: 0 16px; }
+.schem-scroll img { display: block; width: 100%; min-width: 720px; height: auto; max-width: none; }
+.featured .fig.wide figcaption { padding: 0 16px; text-align: left; color: #586773; }
 .gallery { display: flex; flex-direction: column; gap: 8px; justify-content: center; }
 .gallery img { display: block; width: 100%; max-width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 4px; border: 1px solid var(--line); background: var(--land); }
 .gallery .thumbs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
@@ -507,12 +511,12 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
           </div>
         </article>
 
-        <article class="featured proj">
+        <article class="featured proj nofig">
           <div class="txt">
             <div class="proj-meta"><span class="label">ENSEIRB-MATMECA · Mar–May 2025</span><span class="label">VHDL · Artix-7</span></div>
             <h3>FPGA random number generator (LOTO system)</h3>
-            <p>A fully synchronous digital system on a Xilinx Artix-7 FPGA (Nexys 4 board) that generates pseudo-random lottery numbers, checks that each one is unique, and shows them on the 7-segment display.</p>
-            <p>The hierarchical VHDL design contains finite state machines, clock dividers, synchronous counters and multiplexers. Every block was verified with testbenches before synthesis, placement and routing in Vivado.</p>
+            <p>A fully synchronous digital system on a Xilinx Artix-7 FPGA (Nexys 4 board) that draws six pseudo-random lottery numbers, checks that they are unique (with OK and restart LEDs), and shows them on the 7-segment display.</p>
+            <p>The hierarchical VHDL design has a clock-management block that produces clock enables, a flip-flop stage for the push button, the draw logic, modulo counters, multiplexers and a binary-to-7-segment transcoder. Every block was verified with testbenches before synthesis, placement and routing in Vivado.</p>
             <dl class="spec">
               <div><dt>Target</dt><dd>Artix-7 (Nexys 4)</dd></div>
               <div><dt>LUTs used</dt><dd>0.37 %</dd></div>
@@ -521,40 +525,16 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
             </dl>
             <ul class="tags"><li>VHDL</li><li>FSM</li><li>Testbench</li><li>Vivado</li></ul>
           </div>
-          <figure class="fig" style="margin:0">
-            <svg viewBox="0 0 300 262" role="img" aria-label="Simplified block diagram: buttons, debounce and synchroniser, control FSM, number generator, uniqueness check, display multiplexer and 7-segment display, with a clock divider providing enables">
-              <defs>
-                <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead" d="M0 0 L8 4 L0 8 z"/></marker>
-                <marker id="ahc" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead-clk" d="M0 0 L8 4 L0 8 z"/></marker>
-              </defs>
-              <rect class="blk" x="14" y="8" width="122" height="30" rx="3"/><text class="blk-t" x="75" y="27" text-anchor="middle">Push buttons</text>
-              <rect class="blk" x="14" y="62" width="122" height="30" rx="3"/><text class="blk-t" x="75" y="81" text-anchor="middle">Debounce + sync</text>
-              <rect class="blk blk-acc" x="14" y="116" width="122" height="30" rx="3"/><text class="blk-t" x="75" y="135" text-anchor="middle">Control FSM</text>
-              <rect class="blk" x="14" y="170" width="122" height="30" rx="3"/><text class="blk-t" x="75" y="189" text-anchor="middle">Number generator</text>
-              <rect class="blk" x="164" y="170" width="122" height="30" rx="3"/><text class="blk-t" x="225" y="189" text-anchor="middle">Uniqueness check</text>
-              <rect class="blk" x="164" y="116" width="122" height="30" rx="3"/><text class="blk-t" x="225" y="135" text-anchor="middle">Display multiplexer</text>
-              <rect class="blk" x="164" y="62" width="122" height="30" rx="3"/><text class="blk-t" x="225" y="81" text-anchor="middle">7-segment display</text>
-              <rect class="blk" x="90" y="222" width="122" height="30" rx="3"/><text class="blk-t" x="151" y="241" text-anchor="middle">Clock divider</text>
-              <path class="wire" d="M75 38 V60" marker-end="url(#ah)"/>
-              <path class="wire" d="M75 92 V114" marker-end="url(#ah)"/>
-              <path class="wire" d="M75 146 V168" marker-end="url(#ah)"/>
-              <path class="wire" d="M136 185 H162" marker-end="url(#ah)"/>
-              <path class="wire" d="M225 170 V148" marker-end="url(#ah)"/>
-              <path class="wire" d="M225 116 V94" marker-end="url(#ah)"/>
-              <path class="wire-clk" d="M14 237 H88" marker-end="url(#ahc)"/>
-              <text class="blk-s" x="14" y="231">clk in</text>
-              <path class="wire-clk" d="M212 237 H296 V131 H288" marker-end="url(#ahc)"/>
-              <path class="wire-clk" d="M151 222 V210 H6 V77 H12" marker-end="url(#ahc)"/>
-              <text class="blk-s" x="236" y="231">scan enable</text>
-            </svg>
-            <figcaption>Simplified block diagram of the design</figcaption>
+          <figure class="fig wide" style="margin:0">
+            <div class="schem-scroll"><img src="img/loto-schematic.png" alt="Vivado top-level schematic of the LOTO design: clock management, button flip-flop, draw logic, modulo counters, multiplexers and 7-segment transcoder" loading="lazy" width="1433" height="256"></div>
+            <figcaption>Top-level schematic from Vivado: GESTION_HORLOGE → TIRAGE → MUX6 → TRANSCODEUR → MUX4 → 7-segment display</figcaption>
           </figure>
           <div class="mlink">
             <span class="label">How it connects to microelectronics</span>
             <ul class="two">
               <li><b>The digital chip design flow</b>RTL in VHDL, testbench simulation, synthesis, placement, routing and timing checks are the same front-end steps used for a digital ASIC. FPGAs are where that logic is usually prototyped before tape-out.</li>
-              <li><b>Synchronous design discipline</b>Clock dividers, counters and state machines must follow synchronous design rules so that static timing analysis holds. Chip designers rely on exactly that to close timing at the target frequency.</li>
-              <li><b>Asynchronous inputs and metastability</b>A push button is not aligned to the clock, so it has to be synchronised and debounced. It is the same problem as reading a comparator output in an ADC or passing data between clock domains.</li>
+              <li><b>Synchronous design discipline</b>The clock-management block generates clock enables (CE_AFFICHAGE, CE_PROCESSING) instead of new clocks, so the whole design stays in one clock domain and static timing analysis holds. Chip designers follow the same rule to close timing.</li>
+              <li><b>Asynchronous inputs and metastability</b>The push button is not aligned to the clock, so it passes through its own flip-flop block before the draw logic sees it. It is the same problem as reading a comparator output in an ADC or passing data between clock domains.</li>
               <li><b>Utilisation is area</b>Using 0.37 % of the LUTs is the FPGA version of a small die. On an ASIC, the same logic would be measured in gates and µm².</li>
             </ul>
           </div>
