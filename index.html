@@ -251,6 +251,13 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
 .mlink ul.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 640px) { .mlink ul.two { grid-template-columns: minmax(0, 1fr); } }
 [hidden] { display: none !important; }
+.simfig.wide { background: var(--bg); }
+.sim-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 16px; }
+.sim-panel { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.sim-panel img { display: block; width: 100%; height: auto; border-radius: 4px; background: #000000; }
+.sim-panel span { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.featured .simfig.wide figcaption { color: var(--muted); }
+@media (max-width: 640px) { .sim-row { grid-template-columns: minmax(0, 1fr); } }
 .featured .fig.wide { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); background: #FFFFFF; padding: 16px 0 12px; }
 .schem-scroll { overflow-x: auto; padding: 0 16px; }
 .schem-scroll img { display: block; width: 100%; min-width: 720px; height: auto; max-width: none; }
@@ -429,6 +436,13 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
               <text class="sch-t" x="136" y="199">I_bias 2.2 mA</text>
             </svg>
             <figcaption>Cross-coupled NMOS core, R<sub>T</sub> ≈ 544 Ω tank</figcaption>
+          </figure>
+          <figure class="fig wide simfig" style="margin:0">
+            <div class="sim-row">
+              <div class="sim-panel"><img src="img/osc-pss.png" alt="Spectre PSS spectrum of v(Out+, Out−): fundamental at 433 MHz with 1.75 V amplitude, small harmonics at 866 MHz, 1.3 GHz and 1.73 GHz" loading="lazy" width="693" height="693"><span>PSS · harmonics of v(Out+ − Out−)</span></div>
+              <div class="sim-panel"><img src="img/osc-pnoise.png" alt="Spectre pnoise phase-noise curve from 10 Hz to 100 MHz offset, −118.8 dBc/Hz at 100 kHz" loading="lazy" width="706" height="693"><span>PSS + pnoise · phase noise vs offset</span></div>
+            </div>
+            <figcaption>Cadence Spectre results. Even harmonics nearly cancel in the differential output; the noise curve steepens below 100 kHz where flicker noise is up-converted.</figcaption>
           </figure>
         </article>
 
