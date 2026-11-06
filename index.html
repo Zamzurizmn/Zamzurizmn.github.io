@@ -304,7 +304,7 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
   <div class="wrap">
     <dl>
       <div><dt>LC oscillator target frequency</dt><dd>433 MHz</dd></div>
-      <div><dt>Phase-noise target at 1 MHz offset</dt><dd>−110 dBc/Hz</dd></div>
+      <div><dt>Simulated phase noise at 100 kHz offset</dt><dd>−118.8 dBc/Hz</dd></div>
       <div><dt>LSB of 4-bit flash ADC (3.3 V ref)</dt><dd>206 mV</dd></div>
       <div><dt>Co-authored journal paper</dt><dd>1 · 2026</dd></div>
     </dl>
@@ -346,13 +346,13 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
           <div class="txt">
             <div class="proj-meta"><span class="label">Featured · 2026</span><span class="label">350 nm CMOS</span></div>
             <h3>Negative-resistance LC oscillator at 433 MHz</h3>
-            <p>A cross-coupled NMOS pair whose negative resistance (−2/g<sub>m</sub>) cancels the losses of a 10 nH, Q<sub>L</sub> = 20 inductor with a 13.5 pF tank (R<sub>T</sub> ≈ 544 Ω), biased by a current-mirror tail.</p>
+            <p>A cross-coupled NMOS pair whose negative resistance (−2/g<sub>m</sub>) cancels the losses of two 10 nH, Q<sub>L</sub> = 20 inductors (r<sub>L</sub> = 1.36 Ω, R<sub>T</sub> ≈ 544 Ω) resonating with 6.76 pF across the outputs, biased by a 2.2 mA current-mirror tail. Specification: V<sub>out,pp</sub> &gt; 1 V, phase noise &lt; −110 dBc/Hz at 100 kHz and I<sub>bias</sub> &lt; 5 mA from 3.3 V.</p>
             <p>I sized the devices by hand with g<sub>m</sub> set to twice the start-up value, then verified the tank (S-parameters), start-up, amplitude and phase noise with tran, PSS and pnoise in Spectre, comparing each result to theory.</p>
             <dl class="spec">
-              <div><dt>Centre frequency</dt><dd>433 MHz</dd></div>
-              <div><dt>Output swing</dt><dd>4 Vpp diff.</dd></div>
-              <div><dt>Phase noise @ 1 MHz</dt><dd>−110 dBc/Hz</dd></div>
-              <div><dt>Supply / current</dt><dd>3.3 V / 5 mA</dd></div>
+              <div><dt>Oscillation frequency</dt><dd>433 MHz</dd></div>
+              <div><dt>Diff. amplitude (PSS) · spec &gt; 1 V</dt><dd>1.75 V</dd></div>
+              <div><dt>Phase noise @ 100 kHz · spec &lt; −110</dt><dd>−118.8 dBc/Hz</dd></div>
+              <div><dt>Supply / bias current · spec &lt; 5 mA</dt><dd>3.3 V / 2.2 mA</dd></div>
             </dl>
             <ul class="tags"><li>Cadence Virtuoso</li><li>Spectre PSS</li><li>pnoise</li><li>S-param</li></ul>
           </div>
@@ -389,12 +389,12 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
               <text class="sch-t k" x="120" y="13" text-anchor="middle">VDD 3.3 V</text>
               <text class="sch-t" x="58" y="54" text-anchor="end">10 nH</text>
               <text class="sch-t" x="182" y="54">10 nH</text>
-              <text class="sch-t" x="120" y="74" text-anchor="middle">13.5 pF</text>
+              <text class="sch-t" x="120" y="74" text-anchor="middle">6.76 pF</text>
               <text class="sch-t k" x="20" y="93">Vout+</text>
               <text class="sch-t k" x="190" y="93">Vout−</text>
               <text class="sch-t" x="52" y="145" text-anchor="end">M1</text>
               <text class="sch-t" x="188" y="145">M2</text>
-              <text class="sch-t" x="136" y="199">I_tail 5 mA</text>
+              <text class="sch-t" x="136" y="199">I_bias 2.2 mA</text>
             </svg>
             <figcaption>Cross-coupled NMOS core, R<sub>T</sub> ≈ 544 Ω tank</figcaption>
           </figure>
