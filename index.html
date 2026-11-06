@@ -242,6 +242,33 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
 .contact a { color: var(--bg); }
 .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: var(--mono); font-size: 12px; opacity: .7; padding-top: 24px; border-top: 1px solid color-mix(in srgb, var(--bg) 20%, transparent); }
 
+/* University projects */
+.featured .mlink { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: clamp(18px, 3vw, 26px) clamp(20px, 3vw, 32px); background: var(--bg); display: flex; flex-direction: column; gap: 12px; }
+.mlink ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px 24px; }
+.mlink li { font-size: 15px; min-width: 0; }
+.mlink li b { display: block; font-family: var(--display); font-weight: 700; font-stretch: 105%; font-size: 15px; margin-bottom: 2px; }
+.featured.nofig { grid-template-columns: minmax(0, 1fr); }
+.mlink ul.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 640px) { .mlink ul.two { grid-template-columns: minmax(0, 1fr); } }
+[hidden] { display: none !important; }
+.gallery { display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+.gallery img { display: block; width: 100%; max-width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 4px; border: 1px solid var(--line); background: var(--land); }
+.gallery .thumbs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+.gallery figcaption { text-align: left; }
+.sub-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 36px 0 16px; }
+.sub-head h3 { font-size: 20px; font-weight: 700; font-stretch: 108%; }
+.uni-grid .proj h3 { font-size: 18px; }
+.uni-grid .proj .chip { margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 14px; color: var(--muted); }
+.uni-grid .proj .chip b { color: var(--copper); font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 2px; }
+.blk { fill: var(--surface); stroke: var(--ink); stroke-width: 1.3; }
+.blk-acc { fill: var(--teal-soft); stroke: var(--teal); }
+.blk-t { font: 500 10px var(--mono); fill: var(--ink); }
+.blk-s { font: 400 9px var(--mono); fill: var(--muted); }
+.wire { stroke: var(--ink); stroke-width: 1.3; fill: none; }
+.wire-clk { stroke: var(--copper); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+.arrowhead { fill: var(--ink); }
+.arrowhead-clk { fill: var(--copper); }
+
 /* Schematic */
 .sch { stroke: var(--ink); stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .sch-acc { stroke: var(--copper); }
@@ -259,6 +286,7 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#university">University</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -433,6 +461,142 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
               <div><dt>Resolution</dt><dd>4 bit</dd></div>
             </dl>
             <ul class="tags"><li>SPICE</li><li>R-2R</li><li>Sample &amp; hold</li></ul>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="university">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">University</span><div><h2>Digital, embedded and software projects</h2><p>Course projects at ENSEIRB-MATMECA and IUT Nice Côte d'Azur, each with a note on where it meets chip design.</p></div></div>
+    <div class="body-grid">
+      <div class="rail"></div>
+      <div class="col">
+
+        <article class="featured proj">
+          <div class="txt">
+            <div class="proj-meta"><span class="label">ENSEIRB-MATMECA · Feb–Apr 2026</span><span class="label">C</span></div>
+            <h3>Mandelbrot deep-zoom engine</h3>
+            <p>A fractal renderer written in pure C that animates a deep zoom into the Mandelbrot set. Each pixel runs the escape-time loop z<sub>n+1</sub> = z<sub>n</sub><sup>2</sup> + c, written out in real and imaginary parts for speed.</p>
+            <p>A master process splits every frame across four parallel worker processes. A modulo-based phase function maps escape counts to smooth RGB gradients, and the frames are assembled into a high-resolution MP4.</p>
+            <dl class="spec">
+              <div><dt>Language</dt><dd>C</dd></div>
+              <div><dt>Parallelism</dt><dd>4 worker processes</dd></div>
+              <div><dt>Deepest frame shown</dt><dd>99× zoom</dd></div>
+              <div><dt>Output</dt><dd>MP4 animation</dd></div>
+            </dl>
+            <ul class="tags"><li>C</li><li>Escape-time algorithm</li><li>Multi-processing</li></ul>
+          </div>
+          <figure class="fig gallery" style="margin:0">
+            <img src="img/mandelbrot-full.jpg" alt="Full view of the Mandelbrot set rendered in red and yellow" loading="lazy" onerror="var a=this.closest('.featured');a.classList.add('nofig');this.closest('figure').hidden=true">
+            <div class="thumbs">
+              <img src="img/mandelbrot-40x.jpg" alt="Mandelbrot set at 40x zoom" loading="lazy">
+              <img src="img/mandelbrot-99x.jpg" alt="Mandelbrot set at 99x zoom" loading="lazy">
+            </div>
+            <figcaption>Full view · 40× zoom · 99× zoom</figcaption>
+          </figure>
+          <div class="mlink">
+            <span class="label">How it connects to microelectronics</span>
+            <ul>
+              <li><b>Parallel by nature</b>Every pixel is independent, which is why the Mandelbrot set is a classic benchmark for hardware accelerators. Splitting a frame across four workers is the software version of placing several compute cores on one chip.</li>
+              <li><b>Arithmetic becomes area</b>One iteration takes three multiplications (x², y², xy) and a few additions. On an FPGA or ASIC each multiplier is a DSP block or an array of gates, and pipelining them sets the clock frequency and the throughput.</li>
+              <li><b>Precision costs silicon</b>Deep zooms need more bits to separate neighbouring points. Picking a word length is the same trade-off between accuracy, area and power that sets the resolution of a data converter.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="featured proj">
+          <div class="txt">
+            <div class="proj-meta"><span class="label">ENSEIRB-MATMECA · Mar–May 2025</span><span class="label">VHDL · Artix-7</span></div>
+            <h3>FPGA random number generator (LOTO system)</h3>
+            <p>A fully synchronous digital system on a Xilinx Artix-7 FPGA (Nexys 4 board) that generates pseudo-random lottery numbers, checks that each one is unique, and shows them on the 7-segment display.</p>
+            <p>The hierarchical VHDL design contains finite state machines, clock dividers, synchronous counters and multiplexers. Every block was verified with testbenches before synthesis, placement and routing in Vivado.</p>
+            <dl class="spec">
+              <div><dt>Target</dt><dd>Artix-7 (Nexys 4)</dd></div>
+              <div><dt>LUTs used</dt><dd>0.37 %</dd></div>
+              <div><dt>Flip-flops used</dt><dd>0.21 %</dd></div>
+              <div><dt>Display</dt><dd>time-multiplexed 7-seg</dd></div>
+            </dl>
+            <ul class="tags"><li>VHDL</li><li>FSM</li><li>Testbench</li><li>Vivado</li></ul>
+          </div>
+          <figure class="fig" style="margin:0">
+            <svg viewBox="0 0 300 262" role="img" aria-label="Simplified block diagram: buttons, debounce and synchroniser, control FSM, number generator, uniqueness check, display multiplexer and 7-segment display, with a clock divider providing enables">
+              <defs>
+                <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead" d="M0 0 L8 4 L0 8 z"/></marker>
+                <marker id="ahc" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead-clk" d="M0 0 L8 4 L0 8 z"/></marker>
+              </defs>
+              <rect class="blk" x="14" y="8" width="122" height="30" rx="3"/><text class="blk-t" x="75" y="27" text-anchor="middle">Push buttons</text>
+              <rect class="blk" x="14" y="62" width="122" height="30" rx="3"/><text class="blk-t" x="75" y="81" text-anchor="middle">Debounce + sync</text>
+              <rect class="blk blk-acc" x="14" y="116" width="122" height="30" rx="3"/><text class="blk-t" x="75" y="135" text-anchor="middle">Control FSM</text>
+              <rect class="blk" x="14" y="170" width="122" height="30" rx="3"/><text class="blk-t" x="75" y="189" text-anchor="middle">Number generator</text>
+              <rect class="blk" x="164" y="170" width="122" height="30" rx="3"/><text class="blk-t" x="225" y="189" text-anchor="middle">Uniqueness check</text>
+              <rect class="blk" x="164" y="116" width="122" height="30" rx="3"/><text class="blk-t" x="225" y="135" text-anchor="middle">Display multiplexer</text>
+              <rect class="blk" x="164" y="62" width="122" height="30" rx="3"/><text class="blk-t" x="225" y="81" text-anchor="middle">7-segment display</text>
+              <rect class="blk" x="90" y="222" width="122" height="30" rx="3"/><text class="blk-t" x="151" y="241" text-anchor="middle">Clock divider</text>
+              <path class="wire" d="M75 38 V60" marker-end="url(#ah)"/>
+              <path class="wire" d="M75 92 V114" marker-end="url(#ah)"/>
+              <path class="wire" d="M75 146 V168" marker-end="url(#ah)"/>
+              <path class="wire" d="M136 185 H162" marker-end="url(#ah)"/>
+              <path class="wire" d="M225 170 V148" marker-end="url(#ah)"/>
+              <path class="wire" d="M225 116 V94" marker-end="url(#ah)"/>
+              <path class="wire-clk" d="M14 237 H88" marker-end="url(#ahc)"/>
+              <text class="blk-s" x="14" y="231">clk in</text>
+              <path class="wire-clk" d="M212 237 H296 V131 H288" marker-end="url(#ahc)"/>
+              <path class="wire-clk" d="M151 222 V210 H6 V77 H12" marker-end="url(#ahc)"/>
+              <text class="blk-s" x="236" y="231">scan enable</text>
+            </svg>
+            <figcaption>Simplified block diagram of the design</figcaption>
+          </figure>
+          <div class="mlink">
+            <span class="label">How it connects to microelectronics</span>
+            <ul class="two">
+              <li><b>The digital chip design flow</b>RTL in VHDL, testbench simulation, synthesis, placement, routing and timing checks are the same front-end steps used for a digital ASIC. FPGAs are where that logic is usually prototyped before tape-out.</li>
+              <li><b>Synchronous design discipline</b>Clock dividers, counters and state machines must follow synchronous design rules so that static timing analysis holds. Chip designers rely on exactly that to close timing at the target frequency.</li>
+              <li><b>Asynchronous inputs and metastability</b>A push button is not aligned to the clock, so it has to be synchronised and debounced. It is the same problem as reading a comparator output in an ADC or passing data between clock domains.</li>
+              <li><b>Utilisation is area</b>Using 0.37 % of the LUTs is the FPGA version of a small die. On an ASIC, the same logic would be measured in gates and µm².</li>
+            </ul>
+          </div>
+        </article>
+
+        <div class="sub-head"><h3>More course projects</h3><span class="label">2023 – 2025</span></div>
+        <div class="proj-grid uni-grid">
+          <article class="proj">
+            <div class="proj-meta"><span class="label">ENSEIRB · 2025</span><span class="label">C</span></div>
+            <h3>Lossless image compression (Huffman)</h3>
+            <p>Compresses raw PPM images: builds a Huffman tree from the colour histogram, assigns variable-length codes by depth-first search, and packs them into bytes with bit shifts and masks.</p>
+            <p class="chip"><b>Chip link</b>Entropy coding and bit packing are what hardware codecs and serial links do in logic.</p>
+          </article>
+          <article class="proj">
+            <div class="proj-meta"><span class="label">ENSEIRB · 2025</span><span class="label">PIC16F877A</span></div>
+            <h3>Real-time clock and LCD driver</h3>
+            <p>Timer1 and CCP interrupts driven by a 32.768 kHz crystal keep time to 10<sup>−5</sup>. A custom bare-metal C library drives a 2×16 LCD in 4-bit mode.</p>
+            <p class="chip"><b>Chip link</b>A crystal oscillator is the reference clock a PLL locks to, and its accuracy sets the timing of the whole system.</p>
+          </article>
+          <article class="proj">
+            <div class="proj-meta"><span class="label">IUT Nice · 2024</span><span class="label">Audio</span></div>
+            <h3>Class-D amplifier for a Bluetooth speaker</h3>
+            <p>Filtering and amplification of the Bluetooth audio, conversion for the Class-D stage, and a PCB with an H-bridge output stage for efficiency and low heat.</p>
+            <p class="chip"><b>Chip link</b>Class-D switching is the same principle as on-chip audio amplifiers and DC-DC converters in power-management ICs.</p>
+          </article>
+          <article class="proj">
+            <div class="proj-meta"><span class="label">IUT Nice · 2024</span><span class="label">VHDL</span></div>
+            <h3>E-bike motor controller</h3>
+            <p>Motor control written in VHDL on an Altera programmable logic device, supervised by an MBED microcontroller, with a web server and phone app showing live parameters.</p>
+            <p class="chip"><b>Chip link</b>Control logic in hardware gives fixed, cycle-exact timing, which is why motor drivers implement it in gates.</p>
+          </article>
+          <article class="proj">
+            <div class="proj-meta"><span class="label">IUT Nice · 2023–24</span><span class="label">RF</span></div>
+            <h3>Smart e-tricycle IoT network</h3>
+            <p>Main control PCB and a long-range antenna modelled in ADS for a fleet of connected tricycles in Nice, with LoRaWAN links to a Node-RED and Java back end.</p>
+            <p class="chip"><b>Chip link</b>Antenna gain and the link budget define what the receiver's RF front-end (LNA, mixer, PLL) must achieve.</p>
+          </article>
+          <article class="proj">
+            <div class="proj-meta"><span class="label">IUT Nice · 2023</span><span class="label">PLC</span></div>
+            <h3>Automated pinball controller</h3>
+            <p>Automatic and manual modes: a Crouzet EM4 PLC handles the machine states, and a microcontroller in C runs scoring and game logic. Sensor wiring drawn in SEE Electrical.</p>
+            <p class="chip"><b>Chip link</b>The machine is a set of state machines, the same structure later written in VHDL and synthesised to gates.</p>
           </article>
         </div>
       </div>
