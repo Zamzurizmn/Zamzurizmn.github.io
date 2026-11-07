@@ -312,7 +312,7 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
     <div class="hero-text">
       <p class="eyebrow">Analog &amp; RF IC design · Electronics engineering</p>
       <h1>Muhammad Zamzuri <span class="bin">bin Zamani</span></h1>
-      <p class="lead">Engineering student at ENSEIRB-MATMECA, Bordeaux INP. I design and verify CMOS building blocks — LC oscillators, data converters and optical front-ends — from hand calculations to Spectre simulation in Cadence Virtuoso.</p>
+      <p class="lead">Engineering student at ENSEIRB-MATMECA, Bordeaux INP. I design and verify CMOS building blocks — LC oscillators, data converters and optical links — from hand calculations to Spectre simulation in Cadence Virtuoso.</p>
       <p class="avail">Looking for an analog / RF IC design internship · 12–15 weeks from 24 May 2027</p>
       <div class="actions">
         <a class="btn primary" href="https://www.linkedin.com/in/mbinzamani97" target="_blank" rel="noopener">
@@ -448,37 +448,37 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
 
         <div class="proj-grid">
           <article class="proj">
-            <div class="proj-meta"><span class="label">2025</span><span class="label">0.16 µm CMOS</span></div>
+            <div class="proj-meta"><span class="label">2025</span><span class="label">0.35 <span style="text-transform:none">µm</span> BiCMOS</span></div>
             <h3>4-bit flash ADC</h3>
-            <p>Designed the comparator array and a calibrated resistor ladder, then validated the converter architecture in Cadence Virtuoso.</p>
+            <p>Designed with a partner, bottom-up in Cadence Virtuoso on the AMS 0.35 µm kit, from nmos4/pmos4 characterisation (V<sub>T</sub>, K, λ) to a transmission-gate sample-and-hold, current-mirror biasing, differential-pair N/P comparators, a 16-level resistor ladder, a thermometer-to-binary decoder and a 4-bit output register. In transient simulation with a sine input, every conversion matched the ideal code.</p>
             <dl class="spec">
               <div><dt>Resolution</dt><dd>4 bit</dd></div>
-              <div><dt>Reference</dt><dd>3.3 V</dd></div>
-              <div><dt>LSB</dt><dd>206 mV</dd></div>
+              <div><dt>LSB (3.3 V ref)</dt><dd>206 mV</dd></div>
+              <div><dt>S/H switch R<sub>on</sub></dt><dd>≈ 1 kΩ</dd></div>
             </dl>
-            <ul class="tags"><li>Virtuoso</li><li>Comparators</li><li>Data converters</li></ul>
+            <ul class="tags"><li>Virtuoso</li><li>Sample &amp; hold</li><li>Comparators</li><li>Data converters</li></ul>
           </article>
           <article class="proj">
             <div class="proj-meta"><span class="label">2026</span><span class="label">Hardware</span></div>
-            <h3>Optoelectronic FSK data link</h3>
-            <p>A photodiode transimpedance front-end with compensated feedback, band-pass filtering and envelope detection that recovers the bitstream under ambient room light.</p>
+            <h3>Optoelectronic FSK transmission link</h3>
+            <p>The complete one-way optical link, from modulation to demodulation: an FSK modulator and LED driver on the transmit side; photodiode reception with amplification and band-pass filtering against ambient light, then envelope-detection demodulation and output shaping on the receive side.</p>
             <dl class="spec">
               <div><dt>Data rate</dt><dd>1200 baud</dd></div>
               <div><dt>Link distance</dt><dd>30 cm free space</dd></div>
               <div><dt>Supply</dt><dd>single 5 V</dd></div>
             </dl>
-            <ul class="tags"><li>TIA</li><li>Filters</li><li>FSK</li></ul>
+            <ul class="tags"><li>FSK</li><li>Optoelectronics</li><li>Filters</li><li>TX / RX chain</li></ul>
           </article>
           <article class="proj">
             <div class="proj-meta"><span class="label">2026</span><span class="label">SPICE</span></div>
             <h3>4-bit R-2R DAC with sample-and-hold deglitching</h3>
-            <p>Transient analysis of the ladder and output stage; removed op-amp overshoot and masked carry glitches with a sample-and-hold stage.</p>
+            <p>A discrete R-2R ladder (1 kΩ / 2 kΩ, 5 V reference) with a unity-gain op-amp buffer. Transient analysis exposed a major-carry glitch at 0111 → 1000 peaking at 4.73 V, above full scale. A synchronised sample-and-hold with a 20 µs blind-spot clock removed it, and slowing the track RC from 1 µs to 10 µs cancelled a 12 mV buffer overshoot.</p>
             <dl class="spec">
+              <div><dt>LSB (5 V ref)</dt><dd>312.5 mV</dd></div>
+              <div><dt>Carry glitch removed</dt><dd>4.73 V peak</dd></div>
               <div><dt>Overshoot removed</dt><dd>12 mV</dd></div>
-              <div><dt>S&amp;H clock</dt><dd>20 µs</dd></div>
-              <div><dt>Resolution</dt><dd>4 bit</dd></div>
             </dl>
-            <ul class="tags"><li>SPICE</li><li>R-2R</li><li>Sample &amp; hold</li></ul>
+            <ul class="tags"><li>SPICE</li><li>R-2R</li><li>Sample &amp; hold</li><li>Op-amp buffer</li></ul>
           </article>
         </div>
       </div>
@@ -679,7 +679,7 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
     <div class="body-grid">
       <div class="rail"></div>
       <div class="col skills">
-        <div class="skill"><h3>Analog / RF</h3><ul class="tags"><li>CMOS transistor sizing</li><li>LC oscillators</li><li>Phase noise</li><li>TIA front-ends</li><li>ADC / DAC</li></ul></div>
+        <div class="skill"><h3>Analog / RF</h3><ul class="tags"><li>CMOS transistor sizing</li><li>LC oscillators</li><li>Phase noise</li><li>Comparators</li><li>Sample &amp; hold</li><li>ADC / DAC</li></ul></div>
         <div class="skill"><h3>EDA &amp; simulation</h3><ul class="tags"><li>Cadence Virtuoso</li><li>Spectre: AC, tran, S-param, PSS, pnoise</li><li>SPICE</li><li>ADS</li><li>MATLAB</li><li>KiCad</li></ul></div>
         <div class="skill"><h3>Programming</h3><ul class="tags"><li>Python</li><li>MATLAB</li><li>C</li><li>C++</li></ul></div>
         <div class="skill"><h3>Digital &amp; embedded</h3><ul class="tags"><li>VHDL</li><li>Verilog</li><li>Vivado</li><li>ModelSim</li><li>Quartus</li><li>STM32</li><li>ESP32</li><li>PIC</li></ul></div>
