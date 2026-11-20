@@ -260,6 +260,9 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
 .proj-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 900px) { .proj-grid.two { grid-template-columns: minmax(0, 1fr); } .adc-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .adc-gallery { grid-template-columns: minmax(0, 1fr); } .adc-gallery figure.span2 { grid-column: auto; } }
+.adc-gallery.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.adc-gallery figure.full { grid-column: 1 / -1; }
+@media (max-width: 560px) { .adc-gallery.g2 { grid-template-columns: minmax(0, 1fr); } }
 .simfig.wide { background: var(--bg); }
 .sim-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 16px; }
 .sim-panel { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
@@ -526,6 +529,41 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
     <div class="body-grid">
       <div class="rail"></div>
       <div class="col">
+
+        <article class="featured proj nofig adc">
+          <div class="txt">
+            <div class="proj-meta"><span class="label">ENSEIRB-MATMECA · Oct 2026</span><span class="label">VHDL · Artix-7</span></div>
+            <h3>FPGA audio player: UART-loaded RAM, volume control and PWM DAC</h3>
+            <p>A complete MP3-style audio player in VHDL on a Nexys 4 board (Artix-7 XC7A100T). A PC streams 16-bit audio samples over the USB-UART link. They are reassembled from byte pairs and written into a 262,141 × 11-bit block-RAM buffer (5.9 s of audio). A clock enable divides the 100 MHz clock by 2267 to set the 44.11 kHz sample rate, and a read counter plays the buffer forward or backward, pauses and restarts. Volume is set by an arithmetic right shift (−6 dB per step), and a PWM modulator turns each sample into a single-bit stream that the board's 4th-order Butterworth filter converts back to audio.</p>
+            <p>The control side comes from the first lab: synchronised push buttons, a play/pause/direction state machine, a 1–9 volume counter, a play-time counter and an 8-digit multiplexed 7-segment display. Four control signals link it to the audio datapath. I re-simulated the whole design in GHDL. The ROM sine player reproduces all 1,102 samples it played as exact pulse widths. A 4,410-sample chirp sent over UART, then played forward, at reduced volume, paused, in reverse and restarted, matches a bit-accurate Python model in all 4,634 PWM frames.</p>
+            <dl class="spec">
+              <div><dt>Sample rate</dt><dd>100 MHz / 2267 = 44.11 kHz</dd></div>
+              <div><dt>PWM resolution</dt><dd>2267 steps (≈ 11.1 bit)</dd></div>
+              <div><dt>Audio buffer</dt><dd>262,141 × 11 bit · 5.9 s</dd></div>
+              <div><dt>UART load rate</dt><dd>921.6 kbaud · 46 k samples/s</dd></div>
+              <div><dt>Logic (Vivado synth)</dt><dd>1,846 LUT (2.9 %) · 2,992 FF (2.4 %)</dd></div>
+              <div><dt>Block RAM</dt><dd>88 / 135 RAMB36 (65 %)</dd></div>
+            </dl>
+            <ul class="tags"><li>VHDL</li><li>Vivado</li><li>GHDL</li><li>UART</li><li>Block RAM</li><li>PWM DAC</li><li>FSM</li><li>Audio DSP</li></ul>
+          </div>
+          <div class="adc-gallery g2">
+              <figure class="full"><a href="img/fpga-architecture.png" target="_blank" rel="noopener"><img src="img/fpga-architecture.png" alt="Block diagram: button interface, FSM and counters driving the UART, RAM, volume and PWM audio datapath, with Vivado resource counts" loading="lazy"></a><figcaption>Architecture drawn from the VHDL and the Vivado netlist: user interface (lab 1) driving the audio datapath (lab 2)</figcaption></figure>
+              <figure><a href="img/fpga-playback.png" target="_blank" rel="noopener"><img src="img/fpga-playback.png" alt="Simulated read address, audio output and spectrogram during forward, volume, pause, backward and restart phases" loading="lazy"></a><figcaption>Playback controls in simulation: the read address, filtered output and spectrogram of a chirp through forward, ÷4 volume, pause, reverse and restart</figcaption></figure>
+              <figure><a href="img/fpga-rom-pwm.png" target="_blank" rel="noopener"><img src="img/fpga-rom-pwm.png" alt="PWM frames, reconstructed 1 kHz sine and spectrum showing the 44.1 kHz carrier" loading="lazy"></a><figcaption>PWM DAC: pulse width = sample + 1133; the 1 kHz ROM tone recovered by the filter; carrier and harmonics at 44.1 kHz multiples</figcaption></figure>
+              <figure><a href="img/fpga-uart.png" target="_blank" rel="noopener"><img src="img/fpga-uart.png" alt="UART waveform: rx bits, received bytes, RAM write strobes and write address" loading="lazy"></a><figcaption>UART path: two 8N1 bytes per sample → 16-bit word → RAM write at the next address</figcaption></figure>
+              <figure><a href="img/fpga-rtl-pwm.png" target="_blank" rel="noopener"><img src="img/fpga-rtl-pwm.png" alt="Yosys RTL schematic of PWM_mod: offset adder, sample register, frame counter and comparator" loading="lazy"></a><figcaption>PWM_mod synthesised by GHDL + Yosys: +1133 offset (0x46D), sample register, frame counter cleared by CE, comparator</figcaption></figure>
+              <figure class="full"><a href="img/fpga-rtl-addr.png" target="_blank" rel="noopener"><img src="img/fpga-rtl-addr.png" alt="Yosys RTL schematic of the read-address counter with increment, decrement, wrap and restart multiplexers" loading="lazy"></a><figcaption>CPT_ADDR_LECTURE RTL: ±1 step, wrap at the last written address or at 0, restart, and enable = CE · (play or restart)</figcaption></figure>
+          </div>
+          <div class="mlink">
+            <span class="label">How it connects to microelectronics</span>
+            <ul class="two">
+              <li><b>PWM is a 1-bit DAC</b>The design trades amplitude resolution for timing resolution: f<sub>clk</sub>/f<sub>s</sub> = 2267 levels, about 11 bits. The carrier sits at only 2× the audio band, so the analog filter does all the work (about 37 dB of carrier rejection in the model). That is why on-chip audio DACs oversample and noise-shape instead.</li>
+              <li><b>Memory dominates the area</b>The 2.9 Mbit buffer uses 65 % of the device's block RAM, while all the logic fits in under 3 % of the LUTs. To drive 88 RAM blocks, Vivado copied each 18-bit address counter 75–80 times. Fan-out is a physical cost, just as SRAM macros and their address buffers dominate an SoC die.</li>
+              <li><b>One clock, many enables</b>44.1 kHz, 3 kHz and 10 Hz are all clock-enable pulses from one 100 MHz clock, so the design stays in a single clock domain where static timing analysis applies. Chip designers use the same discipline to close timing.</li>
+              <li><b>Verification beyond the waveform</b>A strict simulator flagged two integer counters in the provided UART receiver that step one past their declared range for a single clock cycle. On the board the register just wraps, but range checks are how such corner cases are caught before silicon.</li>
+            </ul>
+          </div>
+        </article>
 
         <article class="featured proj">
           <div class="txt">
