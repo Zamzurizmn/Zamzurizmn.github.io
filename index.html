@@ -611,6 +611,25 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
           </div>
         </article>
 
+        <article class="featured proj nofig adc">
+          <div class="txt">
+            <div class="proj-meta"><span class="label">ENSEIRB-MATMECA · 2024–2025</span><span class="label">Analog · PCB</span></div>
+            <h3>Analog audio chain: 10 W push-pull amplifier and siren generator</h3>
+            <p>A two-board analog audio system, designed with Nicolas Marinia from Proteus simulation to hand-made PCB. The first board is a 10 W audio amplifier: an op-amp driver stage with an input high-pass filter, followed by a complementary MOSFET push-pull output stage. A diode bias network removes crossover distortion, and heatsinks are sized from a thermal calculation.</p>
+            <p>The second board is a siren sound generator. A 555 timer produces a slow sweep that drives a voltage-controlled oscillator (comparator, multiplier and integrator), whose tone sweeps between 400 Hz and 1 kHz and feeds the amplifier to play the siren on a speaker. Both boards were routed, etched, soldered and tested on the bench at school.</p>
+            <dl class="spec">
+              <div><dt>Output power</dt><dd>≈ 10.5 W into 8 Ω</dd></div>
+              <div><dt>Bandwidth (measured)</dt><dd>30 Hz – 20 kHz</dd></div>
+              <div><dt>Supply</dt><dd>±15 V</dd></div>
+              <div><dt>Siren sweep</dt><dd>400 Hz → 1 kHz</dd></div>
+            </dl>
+            <ul class="tags"><li>Proteus ISIS / ARES</li><li>PCB fabrication</li><li>Push-pull</li><li>Op-amps</li><li>VCO</li><li>NE555</li></ul>
+          </div>
+          <div class="adc-gallery g2">
+              <figure class="full"><a href="img/ea113-boards.jpg" target="_blank" rel="noopener"><img src="img/ea113-boards.jpg" alt="Photos of the two finished boards: the push-pull audio amplifier with two heatsinks, and the siren sound generator" loading="lazy"></a><figcaption>The two finished boards: amplifier (left) and siren generator (right)</figcaption></figure>
+          </div>
+        </article>
+
         <div class="sub-head"><h3>More course projects</h3><span class="label">2023 – 2025</span></div>
         <div class="proj-grid uni-grid">
           <article class="proj">
