@@ -251,6 +251,15 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
 .mlink ul.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 640px) { .mlink ul.two { grid-template-columns: minmax(0, 1fr); } }
 [hidden] { display: none !important; }
+.adc-gallery { grid-column: 1 / -1; border-top: 1px solid var(--line); background: var(--bg); padding: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.adc-gallery figure { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.adc-gallery figure.span2 { grid-column: span 2; }
+.adc-gallery img { display: block; width: 100%; height: auto; border-radius: 4px; background: #000000; border: 1px solid var(--line); }
+.adc-gallery a:hover img { border-color: var(--teal); }
+.adc-gallery figcaption { font-family: var(--mono); font-size: 11px; line-height: 1.45; color: var(--muted); }
+.proj-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 900px) { .proj-grid.two { grid-template-columns: minmax(0, 1fr); } .adc-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .adc-gallery { grid-template-columns: minmax(0, 1fr); } .adc-gallery figure.span2 { grid-column: auto; } }
 .simfig.wide { background: var(--bg); }
 .sim-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 16px; }
 .sim-panel { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
@@ -446,18 +455,43 @@ section.block { padding-block: 56px; border-top: 1px solid var(--line); }
           </figure>
         </article>
 
-        <div class="proj-grid">
-          <article class="proj">
-            <div class="proj-meta"><span class="label">2025</span><span class="label">0.35 <span style="text-transform:none">µm</span> BiCMOS</span></div>
-            <h3>4-bit flash ADC</h3>
-            <p>Designed with a partner, bottom-up in Cadence Virtuoso on the AMS 0.35 µm kit, from nmos4/pmos4 characterisation (V<sub>T</sub>, K, λ) to a transmission-gate sample-and-hold, current-mirror biasing, differential-pair N/P comparators, a 16-level resistor ladder, a thermometer-to-binary decoder and a 4-bit output register. In transient simulation with a sine input, every conversion matched the ideal code.</p>
+        <article class="featured proj nofig adc">
+          <div class="txt">
+            <div class="proj-meta"><span class="label">ENSEIRB-MATMECA · Mar–May 2025</span><span class="label">AMS 0.35 <span style="text-transform:none">µm</span> BiCMOS</span></div>
+            <h3>4-bit flash ADC, from transistor to system</h3>
+            <p>A complete 4-bit flash converter, designed with a partner, bottom-up in Cadence Virtuoso on the AMS 0.35 µm kit: from nmos4/pmos4 characterisation (V<sub>T</sub>, K, λ) to a transmission-gate sample-and-hold, current-mirror biasing, differential-pair N and P comparators, a 16-level resistor ladder, a thermometer-to-binary transcoder in NAND logic and a 4-bit register of master–slave D flip-flops.</p>
+            <p>Each block was validated on its own, then assembled hierarchically and checked with a 100 Hz sine sampled at 1 kHz (10 samples per period). In transient simulation, every conversion matched the ideal code.</p>
             <dl class="spec">
-              <div><dt>Resolution</dt><dd>4 bit</dd></div>
-              <div><dt>LSB (3.3 V ref)</dt><dd>206 mV</dd></div>
+              <div><dt>Resolution</dt><dd>4 bit · 16 levels</dd></div>
+              <div><dt>Reference / LSB</dt><dd>3.3 V / 206 mV</dd></div>
+              <div><dt>Comparators</dt><dd>15</dd></div>
+              <div><dt>Reference ladder</dt><dd>16 × 1 kΩ</dd></div>
               <div><dt>S/H switch R<sub>on</sub></dt><dd>≈ 1 kΩ</dd></div>
+              <div><dt>Test signal / clock</dt><dd>100 Hz sine / 1 kHz</dd></div>
             </dl>
-            <ul class="tags"><li>Virtuoso</li><li>Sample &amp; hold</li><li>Comparators</li><li>Data converters</li></ul>
-          </article>
+            <ul class="tags"><li>Cadence Virtuoso</li><li>Spectre</li><li>Mixed-signal</li><li>Sample &amp; hold</li><li>Comparators</li><li>CMOS logic</li></ul>
+          </div>
+          <div class="adc-gallery">
+              <figure class="span2"><a href="img/adc-top.png" target="_blank" rel="noopener"><img src="img/adc-top.png" alt="Cadence top-level schematic of the 4-bit flash ADC" loading="lazy"></a><figcaption>Top level: sample-and-hold → reference ladder and 15 comparators → transcoder → four D flip-flops</figcaption></figure>
+              <figure><a href="img/adc-sh.png" target="_blank" rel="noopener"><img src="img/adc-sh.png" alt="Sample-and-hold output staircase following a sine input" loading="lazy"></a><figcaption>Sample-and-hold: the 100 Hz sine held for each 1 ms clock period</figcaption></figure>
+              <figure><a href="img/adc-nmos-switch.png" target="_blank" rel="noopener"><img src="img/adc-nmos-switch.png" alt="NMOS switch output versus input for several load resistances" loading="lazy"></a><figcaption>NMOS switch, R = 1 kΩ to 1 MΩ: the output stops near VDD − VT, hence the complementary switch</figcaption></figure>
+              <figure><a href="img/adc-thermo.png" target="_blank" rel="noopener"><img src="img/adc-thermo.png" alt="Fifteen comparator outputs switching one after another as the input rises" loading="lazy"></a><figcaption>Thermometer code: the 15 comparators switch one after another, every 206 mV</figcaption></figure>
+              <figure><a href="img/adc-transcoder.png" target="_blank" rel="noopener"><img src="img/adc-transcoder.png" alt="Transcoder schematic built from inverters, NAND2 and NAND4 gates" loading="lazy"></a><figcaption>Thermometer-to-binary transcoder from inverters, NAND2 and NAND4 gates</figcaption></figure>
+              <figure><a href="img/adc-transcoder-dc.png" target="_blank" rel="noopener"><img src="img/adc-transcoder-dc.png" alt="Transcoder outputs S3 to S0 counting in binary as the input rises" loading="lazy"></a><figcaption>Transcoder outputs S3…S0 counting 0000 → 1111 over the 0–3.3 V input range</figcaption></figure>
+              <figure class="span2"><a href="img/adc-final.png" target="_blank" rel="noopener"><img src="img/adc-final.png" alt="Final ADC transient simulation with registered output bits and clock" loading="lazy"></a><figcaption>Final ADC transient: the four registered output bits and the 1 kHz sampling clock</figcaption></figure>
+          </div>
+          <div class="mlink">
+            <span class="label">What the project taught</span>
+            <ul class="two">
+              <li><b>A switch is a resistor</b>From the divider Vout/Vin with a 1 kΩ load, the NMOS on-resistance is about 1 kΩ, set by W/L. An NMOS cannot pass voltages above about VDD − VT and a PMOS cannot pass low ones, so the sampler uses both in parallel to cover 0–3.3 V.</li>
+              <li><b>Holding means leaking</b>With the switch off, a 1 MΩ load still shows about 100 µV from leakage, and the held value droops through the 1 MΩ leak resistance. Hold time and accuracy are a trade-off.</li>
+              <li><b>Flash means parallel</b>All 15 comparators decide at once, so a conversion takes one clock cycle. The cost is 2<sup>N</sup> − 1 comparators: 255 for 8 bits, which is why flash converters stay at low resolution and high speed.</li>
+              <li><b>Thermometer to binary in NAND gates</b>S3 = C8, S2 = C4·/C8 + C12, and so on: each output is a sum of products, built directly as NAND–NAND logic and verified with a DC sweep before adding the register.</li>
+            </ul>
+          </div>
+        </article>
+
+        <div class="proj-grid two">
           <article class="proj">
             <div class="proj-meta"><span class="label">2026</span><span class="label">Hardware</span></div>
             <h3>Optoelectronic FSK transmission link</h3>
